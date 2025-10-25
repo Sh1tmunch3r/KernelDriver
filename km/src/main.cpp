@@ -6,35 +6,36 @@ extern "C" {
 	#include <wdm.h>
 }
 extern "C" {
-	NTKERNELAPI NTSTATUS IoCreateDriver(PUNICODE_STRING DriverName,
-		PDRIVER_INITIALIZE InitializeFunction);
+	NTKERNELAPI NTSTATUS IoCreateDriver(
+		_In_opt_ PUNICODE_STRING DriverName,
+		_In_ PDRIVER_INITIALIZE InitializeFunction);
 
-	NTKERNELAPI NTSTATUS MmCopyVirtualMemory(PEPROCESS SourceProcess, PVOID SourceAddress,
-		PEPROCESS TargetProcess, PVOID TargetAddress,
-		SIZE_T BufferSize, KPROCESSOR_MODE PreviousMode,
-		PSIZE_T ReturnSize);
+	NTKERNELAPI NTSTATUS MmCopyVirtualMemory(
+		_In_ PEPROCESS SourceProcess,
+		_In_ PVOID SourceAddress,
+		_In_ PEPROCESS TargetProcess,
+		_Out_ PVOID TargetAddress,
+		_In_ SIZE_T BufferSize,
+		_In_ KPROCESSOR_MODE PreviousMode,
+		_Out_ PSIZE_T ReturnSize);
 
 	NTKERNELAPI NTSTATUS ZwQueryInformationProcess(
-		HANDLE ProcessHandle,
-		PROCESSINFOCLASS ProcessInformationClass,
-		PVOID ProcessInformation,
-		ULONG ProcessInformationLength,
-		PULONG ReturnLength);
+		_In_ HANDLE ProcessHandle,
+		_In_ PROCESSINFOCLASS ProcessInformationClass,
+		_Out_writes_bytes_(ProcessInformationLength) PVOID ProcessInformation,
+		_In_ ULONG ProcessInformationLength,
+		_Out_opt_ PULONG ReturnLength);
 
 	NTKERNELAPI NTSTATUS PsLookupProcessByProcessId(
-		HANDLE ProcessId,
-		PEPROCESS* Process);
+		_In_ HANDLE ProcessId,
+		_Outptr_ PEPROCESS* Process);
 
-	NTKERNELAPI BOOLEAN PsIsProtectedProcess(PEPROCESS Process);
+	NTKERNELAPI BOOLEAN PsIsProtectedProcess(
+		_In_ PEPROCESS Process);
 
-	NTKERNELAPI ULONG PsGetProcessSessionId(PEPROCESS Process);
+	NTKERNELAPI ULONG PsGetProcessSessionId(
+		_In_ PEPROCESS Process);
 }
-
-// Add these pragma directives
-#pragma comment(lib, "ntoskrnl.lib")
-#pragma comment(lib, "wdf01.lib")
-#pragma comment(lib, "wdfldr.lib")
-#pragma comment(lib, "wdmsec.lib")
 
 void debug_print(PCSTR text) {
 #ifndef DEBUG
@@ -395,29 +396,6 @@ NTSTATUS driver_main(PDRIVER_OBJECT driver_object, PUNICODE_STRING registry_path
 	debug_print("[+] Driver initialised successfully [+]\n");
 
 	return status;
-}
-
-extern "C" {
-
-	NTKERNELAPI
-		NTSTATUS
-		IoCreateDriver(
-			_In_opt_ PUNICODE_STRING DriverName,
-			_In_     PDRIVER_INITIALIZE InitializationFunction
-		);
-
-	NTKERNELAPI
-		NTSTATUS
-		MmCopyVirtualMemory(
-			_In_    PEPROCESS SourceProcess,
-			_In_    PVOID SourceAddress,
-			_In_    PEPROCESS TargetProcess,
-			_Out_   PVOID TargetAddress,
-			_In_    SIZE_T BufferSize,
-			_In_    KPROCESSOR_MODE PreviousMode,
-			_Out_   PSIZE_T ReturnSize
-		);
-
 }
 
 
