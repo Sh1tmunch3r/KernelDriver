@@ -89,8 +89,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <DebuggerFlavor>DbgengKernelDebugger</DebuggerFlavor>
     <IncludePath>C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared;C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\km;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <OutDir>$(SolutionDir)x64\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)x64\$(Configuration)\km\</IntDir>
+    <OutDir>$(SolutionDir)arm64\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)arm64\$(Configuration)\km\</IntDir>
     <TargetName>UnderDriver</TargetName>
     <TargetExt>.sys</TargetExt>
   </PropertyGroup>
@@ -154,12 +154,12 @@
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(KM_INC_PATH);$(DDK_INC_PATH);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_AMD64_;AMD64;_WIN64;WINVER=0x0A00;_WIN32_WINNT=0x0A00;NTDDI_VERSION=0x0A000000;DRIVER;_KERNEL_MODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_ARM64_;ARM64;_WIN64;WINVER=0x0A00;_WIN32_WINNT=0x0A00;NTDDI_VERSION=0x0A000000;DRIVER;_KERNEL_MODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EntryPointSymbol>DriverEntry</EntryPointSymbol>
       <AdditionalDependencies>ntoskrnl.lib;hal.lib;wmilib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(WindowsSdkDir)lib\$(WindowsTargetPlatformVersion)\km\x64;$(DDK_LIB_PATH);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(WindowsSdkDir)lib\$(WindowsTargetPlatformVersion)\km\arm64;$(DDK_LIB_PATH);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
