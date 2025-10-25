@@ -5,6 +5,12 @@
 extern "C" {
 	#include <wdm.h>
 }
+
+// Library pragmas for kernel mode linking
+#pragma comment(lib, "ntoskrnl.lib")
+#pragma comment(lib, "hal.lib")
+#pragma comment(lib, "wdf01000.lib")
+#pragma comment(lib, "wdfldr.lib")
 extern "C" {
 	NTKERNELAPI NTSTATUS IoCreateDriver(
 		_In_opt_ PUNICODE_STRING DriverName,
